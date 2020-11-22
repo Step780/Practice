@@ -2,4 +2,19 @@
     <string name="app_name">Practice</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="cities">
+
+        <item>Москва</item>
+        <item>Казань</item>
+        <item>Владивосток</item>
+        <item>Санкт-Петербург</item>
+        <item>Челябинск</item>
+        <item>Киев</item>
+        <item>Сочи</item>
+        <item>Петропавловск</item>
+        <item>Стамбул</item>
+        <item>Зеленоград</item>
+
+    </string-array>
 </resources>

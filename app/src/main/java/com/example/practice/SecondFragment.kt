@@ -1,10 +1,13 @@
 package com.example.practice
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_second.*
@@ -24,8 +27,7 @@ class SecondFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +35,7 @@ class SecondFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
 
-            layoutManager = LinearLayoutManager(this)
 
-            recyclerView.layoutManager = layoutManager
-
-            adapter = RecyclerAdapter()
-            recyclerView.adapter = adapter
         }
     }
 
@@ -48,9 +45,30 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        val root = inflater.inflate(R.layout.fragment_second, container, false)
+        val cityListView = root.findViewById<ListView>(R.id.listView)
+        //cityListView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha)) Анимация
+        cityListView.adapter = ArrayAdapter<String>(requireContext(), R.layout.text_view, resources.getStringArray(R.array.cities))
+        cityListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+            val contains = sharedPref.contains("city")
+            val city = parent.getItemAtPosition(position) as String
+            Toast.makeText(context, "Выбран город: $city", Toast.LENGTH_SHORT).show()
+            with(sharedPref.edit()) {
+                putString("city", city)
+//                if (position == 1) // для дебага
+//                    remove("city")
+                apply()
+
+               // cityListView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale))
+               // view.findViewById<TextView>(R.id.listTextView).startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale))
+            }
+            if (!contains)
+                parentFragmentManager.beginTransaction().replace(R.id.fragment, FirstFragment()).commit()}
+        return root
     }
+
+
 
     companion object {
         /**

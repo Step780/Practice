@@ -9,10 +9,20 @@
         android:id="@+id/firstFragment"
         android:name="com.example.practice.FirstFragment"
         android:label="Weather"
-        tools:layout="@layout/fragment_first" />
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment"
+            app:enterAnim="@anim/left" />
+    </fragment>
     <fragment
         android:id="@+id/secondFragment"
         android:name="com.example.practice.SecondFragment"
         android:label="Location Settings"
-        tools:layout="@layout/fragment_second" />
+        tools:layout="@layout/fragment_second" >
+        <action
+            android:id="@+id/action_secondFragment_to_firstFragment"
+            app:destination="@id/firstFragment"
+            app:enterAnim="@anim/left" />
+    </fragment>
 </navigation>
