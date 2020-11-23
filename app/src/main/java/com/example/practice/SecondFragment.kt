@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +48,7 @@ class SecondFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_second, container, false)
         val cityListView = root.findViewById<ListView>(R.id.listView)
-        //cityListView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha)) Анимация
+
         cityListView.adapter = ArrayAdapter<String>(requireContext(), R.layout.text_view, resources.getStringArray(R.array.cities))
         cityListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
@@ -65,6 +66,7 @@ class SecondFragment : Fragment() {
             }
             if (!contains)
                 parentFragmentManager.beginTransaction().replace(R.id.fragment, FirstFragment()).commit()}
+        cityListView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in))
         return root
     }
 
