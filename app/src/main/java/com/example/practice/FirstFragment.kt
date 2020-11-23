@@ -36,7 +36,7 @@ class FirstFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val request = "https://api.openweathermap.org/data/2.5/weather?lang=ru"
+    private val request = "http://api.openweathermap.org"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -78,11 +78,11 @@ class FirstFragment : Fragment() {
                                 "Ощущается как ${(weather.main.feels_like - absoluteZero).roundToInt()}\n\n" +
                                 "Погода: ${weather.weather[0].description}\n\n" +
                                 when (weather.weather[0].main) {
-                                    "Snow" -> "Можно поиграть в снежки"
-                                    "Broken clouds" -> "С прояснениями, лучше одеть кофту"
-                                    "Clear" -> "Лучшее время, чтобы пойти на пляж"
-                                    "Clouds" -> "Можно погулять"
-                                    else -> "Не знаю, какой дать совет, но, наверное, лучше сидеть дома..."
+                                    "Snow" -> "Можно полежать в снегу"
+                                    "Broken clouds" -> "Солнце будет не всегда"
+                                    "Clear" -> "Отличное время, чтобы погулять"
+                                    "Clouds" -> "Лучше одетьсся потеплее"
+                                    else -> "Сегодня лучше сидеть дома"
                                 }
                     activity.runOnUiThread {
                         weatherText.text = message
